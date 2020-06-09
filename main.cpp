@@ -8,18 +8,18 @@ using namespace std;
 
 int main()
 {
-	Event<std::tuple<std::string, int>> EventTest;
+	Event<string, std::tuple<std::string, int>> EventTest;
 	EventTest.on("connect", [&](auto tp) {
 		cout << std::get<0>(tp) << " : " << std::get<1>(tp) << endl;
 	});
 	EventTest.emit("connect", std::tuple<std::string, int>("clinet connect to server ... ", 13131));
 
 
-	Event<int> EventTest1;
-	EventTest1.on("msg", [&](int n) {
+	Event<int, int> EventTest1;
+	EventTest1.on(1, [&](int n) {
 		cout << "recv msg is : " <<  n << endl;
 	});
-	EventTest1.emit("msg", 41541541);
+	EventTest1.emit(1, 41541541);
 
 
 	//std::cout << "Hello World!\n";
