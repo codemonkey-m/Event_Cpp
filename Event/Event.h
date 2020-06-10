@@ -12,13 +12,13 @@ public:
 	Event(){}
 	~Event(){}
 
-	void emit(name_type name, _param tp) {
+	void emit(name_type&& name, _param&& tp) {
 		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
 			it->second(tp);
 		}
 	}
 
-	void on(name_type name, std::function<void(_param)> callback) {
+	void on(name_type&& name, std::function<void(_param)>&& callback) {
 		m_mapEvent.insert(make_pair(name, callback));
 	}
 
