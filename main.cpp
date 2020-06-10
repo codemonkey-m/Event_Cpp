@@ -4,6 +4,7 @@
 #include <iostream>
 #include "./Event/Event.h"
 #include <tuple>
+#include <Windows.h>
 using namespace std;
 
 int main()
@@ -12,14 +13,14 @@ int main()
 	EventTest.on("connect", [&](auto tp) {
 		cout << std::get<0>(tp) << " : " << std::get<1>(tp) << endl;
 	});
-	EventTest.emit("connect", std::make_tuple("clinet connect to server ... ", 13131));
+	EventTest.emit("connect", std::forward_as_tuple("clinet connect to server ... ", GetTickCount()));
 
 
 	Event<int, int> EventTest1;
 	EventTest1.on(1, [&](int n) {
 		cout << "recv msg is : " <<  n << endl;
 	});
-	EventTest1.emit(1, 41541541);
+	EventTest1.emit(1, GetTickCount());
 
 
 	//std::cout << "Hello World!\n";
