@@ -18,11 +18,11 @@ public:
 		}
 	}
 
-	void on(name_type&& name, std::function<void(_param)>&& callback) {
+	void on(name_type&& name, function<void(_param)>&& callback) {
 		m_mapEvent.insert(make_pair(name, callback));
 	}
 
 private:
-	multimap<name_type, std::function<void(_param)>> m_mapEvent;
+	multimap<name_type, function<void(_param)>> m_mapEvent;
 };
 

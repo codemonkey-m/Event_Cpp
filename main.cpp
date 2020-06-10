@@ -9,12 +9,11 @@ using namespace std;
 
 int main()
 {
-	Event<string, std::tuple<std::string, int>> EventTest;
+	Event<string, tuple<string, int>> EventTest;
 	EventTest.on("connect", [&](auto tp) {
-		cout << std::get<0>(tp) << " : " << std::get<1>(tp) << endl;
+		cout << get<0>(tp) << " : " << get<1>(tp) << endl;
 	});
-	EventTest.emit("connect", std::forward_as_tuple("clinet connect to server ... ", GetTickCount()));
-
+	EventTest.emit("connect", forward_as_tuple("clinet connect to server ... ", GetTickCount()));
 
 	Event<int, int> EventTest1;
 	EventTest1.on(1, [&](int n) {
@@ -24,6 +23,7 @@ int main()
 
 
 	//std::cout << "Hello World!\n";
+	system("pause");
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
