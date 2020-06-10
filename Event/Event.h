@@ -5,24 +5,24 @@
 #include <tuple>
 using namespace std;
 
-template<typename name_type, typename _param>
+template<typename _type, typename _param>
 class Event
 {
 public:
 	Event(){}
 	~Event(){}
 
-	void emit(name_type&& name, _param&& tp) {
+	void emit(_type&& name, _param&& tp) {
 		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
 			it->second(tp);
 		}
 	}
 
-	void on(name_type&& name, function<void(_param)>&& callback) {
+	void on(_type&& name, function<void(_param)>&& callback) {
 		m_mapEvent.insert(make_pair(name, callback));
 	}
 
 private:
-	multimap<name_type, function<void(_param)>> m_mapEvent;
+	multimap<_type, function<void(_param)>> m_mapEvent;
 };
 

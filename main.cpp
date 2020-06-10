@@ -21,6 +21,11 @@ int main()
 	});
 	EventTest1.emit(1, GetTickCount());
 
+	Event<string, pair<string, int>> EventTest2;
+	EventTest2.on("data", [&] (auto _pair) {
+		cout << _pair.first << ":" << _pair.second << endl;
+	});
+	EventTest2.emit("data", make_pair("current tick is", GetTickCount()));
 
 	//std::cout << "Hello World!\n";
 	system("pause");
