@@ -3,6 +3,7 @@
 #include <functional>
 #include <map>
 #include <tuple>
+#include <iostream>
 using namespace std;
 
 template<typename _type, typename _param>
@@ -12,17 +13,25 @@ public:
 	Event(){}
 	~Event(){}
 
-	void emit(_type&& name, _param&& tp) {
+	//ÓÒÖµ
+	void emit(_type&& name, const _param&& tp) {
 		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
 			it->second(tp);
 		}
 	}
 
-	void on(_type&& name, function<void(_param)>&& callback) {
+	//×óÖµ
+	void emit(_type&& name, const _param& tp) {
+		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
+			it->second(tp);
+		}
+	}
+
+	void on(_type&& name, function<void(const _param&)>&& callback) {
 		m_mapEvent.insert(make_pair(name, callback));
 	}
 
 private:
-	multimap<_type, function<void(_param)>> m_mapEvent;
+	multimap<_type, function<void(const _param&)>> m_mapEvent;
 };
 

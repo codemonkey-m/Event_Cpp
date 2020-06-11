@@ -10,24 +10,24 @@ using namespace std;
 int main()
 {
 	Event<string, tuple<string, int>> EventTest;
-	EventTest.on("connect", [&](auto tp) {
+	EventTest.on("connect", [&](const auto& tp) {
 		cout << get<0>(tp) << " : " << get<1>(tp) << endl;
 	});
 	EventTest.emit("connect", forward_as_tuple("clinet connect to server ... ", GetTickCount()));
 
 	Event<int, int> EventTest1;
-	EventTest1.on(1, [&](int n) {
+	EventTest1.on(1, [&](const auto& n) {
 		cout << "recv msg is : " <<  n << endl;
 	});
 	EventTest1.emit(1, GetTickCount());
 
-	Event<string, pair<string, int>> EventTest2;
-	EventTest2.on("data", [&] (auto _pair) {
-		cout << _pair.first << ":" << _pair.second << endl;
+	Event<int, string> EventTest3;
+	EventTest3.on(1, [&](const auto& s) {
+		cout << "get string is : " << s << endl;
 	});
-	EventTest2.emit("data", make_pair("current tick is", GetTickCount()));
+	string s = "1111";
+	EventTest3.emit(1, s);
 
-	//std::cout << "Hello World!\n";
 	system("pause");
 }
 
