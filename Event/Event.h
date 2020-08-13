@@ -15,14 +15,16 @@ public:
 
 	//ÓÒÖµ
 	void emit(_type&& name, const _param&& tp) {
-		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
+		auto _list = m_mapEvent.equal_range(name);
+		for (auto it = _list.first; it != _list.second; ++it) {
 			it->second(tp);
 		}
 	}
 
 	//×óÖµ
 	void emit(_type&& name, const _param& tp) {
-		for (auto it = m_mapEvent.lower_bound(name); it != m_mapEvent.upper_bound(name); ++it) {
+		auto _list = m_mapEvent.equal_range(name);
+		for (auto it = _list.first; it != _list.second; ++it) {
 			it->second(tp);
 		}
 	}
