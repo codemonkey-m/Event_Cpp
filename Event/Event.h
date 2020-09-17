@@ -1,9 +1,6 @@
 #pragma once
-#include <string>
 #include <functional>
 #include <map>
-#include <tuple>
-#include <iostream>
 using namespace std;
 
 template<typename _type, typename _param>

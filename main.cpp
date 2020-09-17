@@ -9,17 +9,17 @@ using namespace std;
 
 int main()
 {
-	Event<string, tuple<string, int>> EventTest;
+	Event<string, tuple<string, ULONGLONG>> EventTest;
 	EventTest.on("connect", [&](const auto& tp) {
 		cout << get<0>(tp) << " : " << get<1>(tp) << endl;
 	});
-	EventTest.emit("connect", forward_as_tuple("clinet connect to server ... ", GetTickCount()));
+	EventTest.emit("connect", forward_as_tuple("clinet connect to server ... ", GetTickCount64()));
 
-	Event<int, int> EventTest1;
+	Event<int, ULONGLONG> EventTest1;
 	EventTest1.on(1, [&](const auto& n) {
 		cout << "recv msg is : " <<  n << endl;
 	});
-	EventTest1.emit(1, GetTickCount());
+	EventTest1.emit(1, GetTickCount64());
 
 	Event<int, string> EventTest3;
 	EventTest3.on(1, [&](const auto& s) {
