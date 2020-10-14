@@ -1,6 +1,7 @@
 #pragma once
 #include <functional>
-#include <map>
+#include <unordered_map>
+#include <vector>
 using namespace std;
 
 template<typename _type, typename... _param>
@@ -12,25 +13,29 @@ public:
 
 	//右值
 	void emit(_type&& name, const _param&& ...tp) {
-		auto _list = m_mapEvent.equal_range(name);
-		for (auto it = _list.first; it != _list.second; ++it) {
-			it->second(tp...);
-		}
+		auto vec = m_mapEvent.find(name);
+		if (vec == m_mapEvent.end())
+			return;
+
+		for (auto& it : vec->second)
+			it(tp...);
 	}
 
 	//左值
 	void emit(_type&& name, const _param& ...tp) {
-		auto _list = m_mapEvent.equal_range(name);
-		for (auto it = _list.first; it != _list.second; ++it) {
-			it->second(tp...);
-		}
+		auto vec = m_mapEvent.find(name);
+		if (vec == m_mapEvent.end())
+			return;
+
+		for (auto& it : vec->second)
+			it(tp...);
 	}
 
 	void on(_type&& name, function<void(const _param&...)>&& callback) {
-		m_mapEvent.insert(make_pair(name, callback));
+		m_mapEvent[name].push_back(callback);
 	}
 
 private:
-	multimap<_type, function<void(const _param&...)>> m_mapEvent;
+	unordered_map<_type, vector<function<void(const _param&...)> > > m_mapEvent;
 };
 
