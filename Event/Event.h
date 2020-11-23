@@ -16,12 +16,10 @@ public:
 			it->second(tp...);
 	}
 
-	//ÓÒÖµ
 	void emit(_type&& name, const _param&& ...tp) {
 		dispatch(name, tp...);
 	}
 
-	//×óÖµ
 	void emit(_type&& name, const _param& ...tp) {
 		dispatch(name, tp...);
 	}
