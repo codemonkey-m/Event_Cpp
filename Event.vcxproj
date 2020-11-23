@@ -22,7 +22,6 @@
     <ClInclude Include="Event\Event.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Event\Event.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
